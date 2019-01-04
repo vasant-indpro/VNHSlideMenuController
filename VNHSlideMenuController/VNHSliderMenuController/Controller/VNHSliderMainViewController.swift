@@ -8,8 +8,6 @@
 
 import UIKit
 
-fileprivate var sliderMainVC: VNHSliderMainViewController?
-
 class VNHSliderMainViewController: UIViewController {
     
     @IBOutlet weak var controllerContainer: UIView?
@@ -19,51 +17,70 @@ class VNHSliderMainViewController: UIViewController {
     @IBOutlet var panGesture: UIPanGestureRecognizer?
     @IBOutlet var tapGesture: UITapGestureRecognizer?
     
+    let slider = VNHSlider.instance
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
-        sliderMainVC = self
+        slider.mainViewController = self
         
         setup()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    /*
+    
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        guard let identifier = segue.identifier else {
+            return
+        }
+        
+        switch identifier {
+        case "VNHChildNavigationSegue":
+            slider.childNavigationController = segue.destination as? UINavigationController
+            break
+            
+        case "VNHMenuSegue":
+            if let DVC = segue.destination as? VNHSliderLeftMenu {
+                slider.menuViewController = DVC
+                DVC.delegate = self
+            }
+            break
+            
+        default:
+            break
+        }
     }
-    */
-
+    
 }
 
 extension VNHSliderMainViewController {
     
     func setup() {
-        
         showMenu()
         addGestureTarget()
     }
     
-    func addGestureTarget() {
+    fileprivate func addGestureTarget() {
         tapGesture?.addTarget(self, action: #selector(tapped(_:)))
         panGesture?.addTarget(self, action: #selector(panned(_:)))
     }
     
-    @objc func tapped(_ sender: UITapGestureRecognizer) {
+    @objc fileprivate func tapped(_ sender: UITapGestureRecognizer) {
         hideMenu()
     }
     
-    @objc func panned(_ sender: UIPanGestureRecognizer) {
+    @objc fileprivate func panned(_ sender: UIPanGestureRecognizer) {
         
         let translation = sender.translation(in: self.view)
         print("Translation: \(translation)")
@@ -83,24 +100,19 @@ extension VNHSliderMainViewController {
         }
         
         if translation.x < 0 {
-            
         }
         else if (translation.x > 0) {
-            
         }
         else {
-            
         }
-        
         //viewDrag.center = CGPoint(x: viewDrag.center.x + translation.x, y: viewDrag.center.y + translation.y)
         sender.setTranslation(CGPoint.zero, in: self.view)
-        
     }
 }
 
 extension VNHSliderMainViewController {
     
-    func showMenu() {
+    fileprivate func showMenu() {
         
         menuBackground?.isHidden = true
         
@@ -113,13 +125,13 @@ extension VNHSliderMainViewController {
                         
                         frameOfMenu?.origin.x = 0
                         self.menuContainer?.frame = frameOfMenu!
-        
+                        
         }) { (finished) in
             self.menuBackground?.isHidden = false
         }
     }
     
-    func hideMenu() {
+    fileprivate func hideMenu() {
         
         var frameOfMenu = menuContainer?.bounds
         frameOfMenu?.origin.x = 0
@@ -138,9 +150,23 @@ extension VNHSliderMainViewController {
     }
 }
 
+extension VNHSliderMainViewController: VNHSliderLeftMenuDelegate {
+    
+    func didSelectRowAt(_ index: Int) {
+        slider.mainViewController?.hideMenu()
+        print(index.description)
+        
+        let identifier = "DemoViewController" + index.description
+        if let viewController = self.storyboard?.instantiateViewController(withIdentifier: identifier) {
+            viewController.title = identifier
+            slider.childNavigationController?.viewControllers = [viewController]
+        }
+    }
+}
+
 extension UIViewController {
     
     func vnh_toggleMenu() {
-        sliderMainVC?.showMenu()
+        VNHSlider.instance.mainViewController?.showMenu()
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8825A39121DF318A00774CB1 /* VNHSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8825A39021DF318A00774CB1 /* VNHSlider.swift */; };
 		AB37D5211FA8404D00C162EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB37D5201FA8404D00C162EF /* AppDelegate.swift */; };
 		AB37D5231FA8404D00C162EF /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB37D5221FA8404D00C162EF /* DemoViewController.swift */; };
 		AB37D5261FA8404D00C162EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB37D5241FA8404D00C162EF /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8825A39021DF318A00774CB1 /* VNHSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VNHSlider.swift; sourceTree = "<group>"; };
 		AB37D51D1FA8404D00C162EF /* VNHSlideMenuController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VNHSlideMenuController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB37D5201FA8404D00C162EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AB37D5221FA8404D00C162EF /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 		AB37D5361FA844F400C162EF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8825A39021DF318A00774CB1 /* VNHSlider.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				AB37D5291FA8404D00C162EF /* VNHSlideMenuController.xcdatamodeld in Sources */,
 				AB37D53A1FA8452200C162EF /* VNHSliderMainViewController.swift in Sources */,
 				AB37D5231FA8404D00C162EF /* DemoViewController.swift in Sources */,
+				8825A39121DF318A00774CB1 /* VNHSlider.swift in Sources */,
 				AB37D5211FA8404D00C162EF /* AppDelegate.swift in Sources */,
 				AB37D53C1FA8455100C162EF /* VNHSliderLeftMenu.swift in Sources */,
 			);

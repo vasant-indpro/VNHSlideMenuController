@@ -8,7 +8,17 @@
 
 import UIKit
 
+protocol VNHSliderLeftMenuDelegate: class {
+    func didSelectRowAt(_ index: Int)
+}
+
+extension VNHSliderLeftMenuDelegate {
+    func didSelectRowAt(_ index: Int) {}
+}
+
 class VNHSliderLeftMenu: UIViewController {
+    
+    weak var delegate: VNHSliderLeftMenuDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +45,7 @@ class VNHSliderLeftMenu: UIViewController {
 }
 
 extension VNHSliderLeftMenu: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
@@ -47,7 +58,12 @@ extension VNHSliderLeftMenu: UITableViewDataSource {
         
         return cell!
     }
-    
-    
 }
 
+extension VNHSliderLeftMenu: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        delegate?.didSelectRowAt(indexPath.row)
+    }
+}
